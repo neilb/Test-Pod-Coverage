@@ -6,13 +6,13 @@ Test::Pod::Coverage - Check for pod coverage in your distribution.
 
 =head1 VERSION
 
-Version 1.02
+Version 1.04
 
-    $Header: /home/cvs/test-pod-coverage/Coverage.pm,v 1.23 2004/05/01 04:28:48 andy Exp $
+    $Header: /home/cvs/test-pod-coverage/Coverage.pm,v 1.24 2004/05/01 05:07:48 andy Exp $
 
 =cut
 
-our $VERSION = "1.02";
+our $VERSION = "1.04";
 
 =head1 SYNOPSIS
 
@@ -199,6 +199,13 @@ sub all_modules {
             shift @parts if @parts && exists $starters{$parts[0]};
             shift @parts if @parts && $parts[0] eq "lib";
             $parts[-1] =~ s/\.pm$// if @parts;
+
+            # Untaint the parts
+            for ( @parts ) {
+                /^([a-zA-Z0-9_]+)$/;
+                die qq{Invalid and untaintable filename "$file"!} unless $_ eq $1;
+                $_ = $1;
+            }
             my $module = join( "::", @parts );
             push( @modules, $module );
         }

@@ -1,5 +1,9 @@
 Revision history for Test::Pod::Coverage
 
+1.04    Sat May  1 00:06:14 CDT 2004
+        [FIXES]
+        * Now it runs taint-safe.  I was not untainting the filename.
+
 1.02    Fri Apr 30 23:27:23 CDT 2004
         [FIXES]
         * Fixed a warning in all_modules() under 5.8.3
@@ -7,7 +11,6 @@ Revision history for Test::Pod::Coverage
 1.00    Wed Apr 28 23:50:19 CDT 2004
         [ENHANCEMENTS]
         * Now runs taint-safe.
-          NOTE: THIS IS WRONG.  It doesn't run taint-safe. :-(
         * No longer uses File::Find.
 
 0.08    Fri Feb 13 23:13:21 CST 2004
