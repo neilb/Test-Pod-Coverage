@@ -1,5 +1,10 @@
 Revision history for Test::Pod::Coverage
 
+1.00    Wed Apr 28 23:50:19 CDT 2004
+        [ENHANCEMENTS]
+        * Now runs taint-safe.
+        * No longer uses File::Find.
+
 0.08    Fri Feb 13 23:13:21 CST 2004
         [ENHANCEMENTS]
         * Added all_pod_coverage_ok(), and all_modules() for support.

@@ -1,4 +1,5 @@
-# $Id: all_modules.t,v 1.1 2004/02/14 05:14:36 andy Exp $
+#!perl -T
+
 use strict;
 
 use Test::More tests => 2;

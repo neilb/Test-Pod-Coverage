@@ -6,13 +6,13 @@ Test::Pod::Coverage - Check for pod coverage in your distribution.
 
 =head1 VERSION
 
-Version 0.08
+Version 1.00
 
-    $Header: /home/cvs/test-pod-coverage/Coverage.pm,v 1.17 2004/02/14 05:13:35 andy Exp $
+    $Header: /home/cvs/test-pod-coverage/Coverage.pm,v 1.19 2004/04/29 05:01:23 andy Exp $
 
 =cut
 
-our $VERSION = "0.08";
+our $VERSION = "1.00";
 
 =head1 SYNOPSIS
 
@@ -59,8 +59,8 @@ file and have C<Test::Pod::Coverage> automatically find and check all
 modules in the module distribution:
 
     use Test::More;
-    eval "use Test::Pod::Coverage 1.08";
-    plan skip_all => "Test::Pod::Coverage 1.08 required for testing POD coverage" if $@;
+    eval "use Test::Pod::Coverage 1.00";
+    plan skip_all => "Test::Pod::Coverage 1.00 required for testing POD coverage" if $@;
     all_pod_coverage_ok();
 
 =cut
@@ -70,7 +70,6 @@ use warnings;
 
 use Pod::Coverage;
 use Test::Builder;
-use File::Find;
 
 my $Test = Test::Builder->new;
 
@@ -169,23 +168,33 @@ sorted, you'll have to sort them yourself.
 =cut
 
 sub all_modules {
+    my @starters = @_ ? @_ : ('blib');
+    my %starters = map {$_,1} @starters;
+
+    my @queue = @starters;
+
     my @modules;
+    while ( @queue ) {
+        my $file = shift @queue;
+        if ( -d $file ) {
+            opendir my $dh, $file or next;
+            my @newfiles = readdir $dh;
+            @newfiles = File::Spec->no_upwards( @newfiles );
+            @newfiles = grep { $_ ne "CVS" && $_ ne ".svn" } @newfiles;
 
-    my @dirs = @_ ? @_ : ('blib');
-    for my $dir ( @dirs ) {
-        find(
-            sub {
-                return unless -f $_;
-                return unless /\.pm$/;
+            push @queue, map "$file/$_", @newfiles;
+        }
+        if ( -f $file ) {
+            next unless $file =~ /\.pm$/;
 
-                my @parts = File::Spec->splitdir( $File::Find::name );
-                shift @parts if @parts && $parts[0] eq $dir;
-                shift @parts if @parts && $parts[0] eq "lib";
-                $parts[-1] =~ s/\.pm$// if @parts;
-                my $module = join( "::", @parts );
-                push( @modules, $module );
-            }, $dir );
-    }
+            my @parts = File::Spec->splitdir( $file );
+            shift @parts if @parts && exists $starters{$parts[0]};
+            shift @parts if @parts && $parts[0] eq "lib";
+            $parts[-1] =~ s/\.pm$// if @parts;
+            my $module = join( "::", @parts );
+            push( @modules, $module );
+        }
+    } # while
 
     return @modules;
 }

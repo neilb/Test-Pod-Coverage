@@ -10,7 +10,6 @@ WriteMakefile(
         'Pod::Coverage'         => 0,
         'Test::More'            => 0,
         'Test::Builder::Tester' => 0,
-        'File::Find'            => 0,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'Test-Pod-Coverage-*' },

@@ -1,4 +1,4 @@
-# $Id: 00.load.t,v 1.1.1.1 2003/12/29 04:37:11 andy Exp $
+#!perl -T
 
 use Test::More tests => 1;
 
