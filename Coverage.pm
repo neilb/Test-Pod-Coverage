@@ -6,13 +6,13 @@ Test::Pod::Coverage - Check for pod coverage in your distribution.
 
 =head1 VERSION
 
-Version 1.00
+Version 1.02
 
-    $Header: /home/cvs/test-pod-coverage/Coverage.pm,v 1.19 2004/04/29 05:01:23 andy Exp $
+    $Header: /home/cvs/test-pod-coverage/Coverage.pm,v 1.23 2004/05/01 04:28:48 andy Exp $
 
 =cut
 
-our $VERSION = "1.00";
+our $VERSION = "1.02";
 
 =head1 SYNOPSIS
 
@@ -101,15 +101,20 @@ sub all_pod_coverage_ok {
     my $parms = (@_ && (ref $_[0] eq "HASH")) ? shift : {};
     my $msg = shift;
 
-    my @modules = all_modules();
-    $Test->plan( tests => scalar @modules );
-
     my $ok = 1;
-    for my $module ( @modules ) {
-        my $thismsg = defined $msg ? $msg : "Pod coverage on $module";
+    my @modules = all_modules();
+    if ( @modules ) {
+        $Test->plan( tests => scalar @modules );
 
-        my $thisok = pod_coverage_ok( $module, $parms, $thismsg );
-        $ok = 0 unless $thisok;
+        for my $module ( @modules ) {
+            my $thismsg = defined $msg ? $msg : "Pod coverage on $module";
+
+            my $thisok = pod_coverage_ok( $module, $parms, $thismsg );
+            $ok = 0 unless $thisok;
+        }
+    } else {
+        $Test->plan( tests => 1 );
+        $Test->ok( 1, "No modules found." );
     }
 
     return $ok;
@@ -177,8 +182,11 @@ sub all_modules {
     while ( @queue ) {
         my $file = shift @queue;
         if ( -d $file ) {
-            opendir my $dh, $file or next;
-            my @newfiles = readdir $dh;
+            local *DH;
+            opendir DH, $file or next;
+            my @newfiles = readdir DH;
+            closedir DH;
+
             @newfiles = File::Spec->no_upwards( @newfiles );
             @newfiles = grep { $_ ne "CVS" && $_ ne ".svn" } @newfiles;
 
