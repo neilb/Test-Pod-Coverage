@@ -1,5 +1,12 @@
 Revision history for Test::Pod::Coverage
 
+1.06	Tue Jun 22 16:51:42 CDT 2004
+	[ENHANCEMENTS]
+	* Looks in blib/ if there is one, otherwise looks in lib/
+	* Doesn't report "no public symbols" unless verbose mode is on.
+	* Thanks to David Wheeler and Shawn Sorichetti for nudging.
+	  This behavior will be in Test::Pod soon, too.
+
 1.04    Sat May  1 00:06:14 CDT 2004
         [FIXES]
         * Now it runs taint-safe.  I was not untainting the filename.

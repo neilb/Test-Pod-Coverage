@@ -6,13 +6,13 @@ Test::Pod::Coverage - Check for pod coverage in your distribution.
 
 =head1 VERSION
 
-Version 1.04
+Version 1.06
 
-    $Header: /home/cvs/test-pod-coverage/Coverage.pm,v 1.24 2004/05/01 05:07:48 andy Exp $
+    $Header: /home/cvs/test-pod-coverage/Coverage.pm,v 1.26 2004/06/22 22:02:06 andy Exp $
 
 =cut
 
-our $VERSION = "1.04";
+our $VERSION = "1.06";
 
 =head1 SYNOPSIS
 
@@ -152,9 +152,11 @@ sub pod_coverage_ok {
         }
     } else { # No symbols
         my $why = $pc->why_unrated;
-        $ok = ( $why =~ "no public symbols defined" );
+        my $nopublics = ( $why =~ "no public symbols defined" );
+        my $verbose = $ENV{HARNESS_VERBOSE} || 0;
+        $ok = $nopublics;
         $Test->ok( $ok, $msg );
-        $Test->diag( "$module: $why" );
+        $Test->diag( "$module: $why" ) unless ( $nopublics && !$verbose );
     }
 
     return $ok;
@@ -173,7 +175,7 @@ sorted, you'll have to sort them yourself.
 =cut
 
 sub all_modules {
-    my @starters = @_ ? @_ : ('blib');
+    my @starters = @_ ? @_ : _starting_points();
     my %starters = map {$_,1} @starters;
 
     my @queue = @starters;
@@ -212,6 +214,11 @@ sub all_modules {
     } # while
 
     return @modules;
+}
+
+sub _starting_points {
+    return 'blib' if -e 'blib';
+    return 'lib';
 }
 
 =head1 AUTHOR
