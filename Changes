@@ -1,5 +1,5 @@
-# $Id: Changes,v 1.1.1.1 2003/12/29 04:37:11 andy Exp $
 Revision history for Test::Pod::Coverage
 
-0.01	
-	Brand new, and ready to go.
+0.02	
+	First version with the new reasonable API on pod_coverage_ok().
+	If you got in on 0.01, switch now.

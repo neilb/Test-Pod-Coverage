@@ -1,5 +1,3 @@
-#$Id: Coverage.pm,v 1.4 2004/01/04 06:21:56 andy Exp $
-
 package Test::Pod::Coverage;
 
 =head1 NAME
@@ -8,13 +6,13 @@ Test::Pod::Coverage - Check for pod coverage in your distribution.
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
-    $Header: /home/cvs/test-pod-coverage/Coverage.pm,v 1.4 2004/01/04 06:21:56 andy Exp $
+    $Header: /home/cvs/test-pod-coverage/Coverage.pm,v 1.5 2004/01/05 03:57:12 andy Exp $
 
 =cut
 
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 
 =head1 SYNOPSIS
 
@@ -23,16 +21,14 @@ Checks for POD coverage in files for your distribution.
     use Test::Pod::Coverage tests=>1;
     pod_coverage_ok( "Foo::Bar", "Foo::Bar is covered" );
 
-Can also be called with a custom L<Pod::Coverage> object, if a
-default one doesn't work for you.
+Can also be called with L<Pod::Coverage> parms.
 
     use Test::Pod::Coverage tests=>1;
-    my $pc =
-	Pod::Coverage->new(
-	    package => "Foo::Bar",
-	    also_private => [ qr/^FOO_/ ], # all FOO_* are private
-	);
-    pod_coverage_ok( $pc, "Foo::Bar is covered" );
+    pod_coverage_ok(
+	"Foo::Bar",
+	{ also_private => [ qr/^[A-Z_]+$/ ], },
+	"Foo::Bar, with all-caps functions as privates",
+    );
 
 =cut
 
@@ -56,17 +52,22 @@ sub import {
 
 =head1 FUNCTIONS
 
-=head2 pod_coverage_ok( $module, $msg )
+=head2 pod_coverage_ok( $module, [$parms, ] $msg )
 
 Checks that the POD code in I<$module> has proper POD coverage.
+
+If the I<$parms> hashref if passed in, they're passed into the
+C<Pod::Coverage> object that the function uses.  Check the
+L<Pod::Coverage> manual for what those can be.
 
 =cut
 
 sub pod_coverage_ok {
-    my $pc = shift;
-    $pc = Pod::Coverage->new( package => $pc ) unless ref $pc eq "Pod::Coverage";
-    my $msg = shift;
+    my $module = shift;
+    my $parms = (@_ && (ref $_[0] eq "HASH")) ? shift : {};
+    my $msg = shift || "Pod coverage on $module";
 
+    my $pc = Pod::Coverage->new( package => $module, %$parms );
     my $rating = $pc->coverage;
     my $ok;
     if ( defined $rating ) {
