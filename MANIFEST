@@ -5,9 +5,11 @@ META.yml
 Makefile.PL
 t/00.load.t
 t/Nopod.pm
+t/Nosymbols.pm
 t/Privates.pm
 t/Simple.pm
 t/nopod.t
+t/nosymbols.t
 t/parms.t
 t/pod.t
 t/privates.t

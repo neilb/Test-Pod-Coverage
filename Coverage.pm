@@ -6,13 +6,13 @@ Test::Pod::Coverage - Check for pod coverage in your distribution.
 
 =head1 VERSION
 
-Version 0.04
+Version 0.06
 
-    $Header: /home/cvs/test-pod-coverage/Coverage.pm,v 1.10 2004/01/19 03:52:21 andy Exp $
+    $Header: /home/cvs/test-pod-coverage/Coverage.pm,v 1.13 2004/01/26 04:36:03 andy Exp $
 
 =cut
 
-our $VERSION = "0.04";
+our $VERSION = "0.06";
 
 =head1 SYNOPSIS
 
@@ -82,17 +82,21 @@ sub pod_coverage_ok {
     my $rating = $pc->coverage;
     my $ok;
     if ( defined $rating ) {
-	$ok = ($pc->coverage == 1);
+	$ok = ($rating == 1);
 	$Test->ok( $ok, $msg );
 	if ( !$ok ) {
             my @nakies = sort $pc->naked;
-	    $Test->diag( sprintf( "Coverage is %3.1f%% with %d naked subroutines", $rating*100, scalar @nakies ) );
+            my $s = @nakies == 1 ? "" : "s";
+	    $Test->diag(
+                sprintf( "Coverage for %s is %3.1f%%, with %d naked subroutine$s:",
+                    $module, $rating*100, scalar @nakies ) );
             $Test->diag( "\t$_" ) for @nakies;
 	}
-    } else {
-	$ok = 0;
+    } else { # No symbols
+        my $why = $pc->why_unrated;
+	$ok = ( $why =~ "no public symbols defined" );
 	$Test->ok( $ok, $msg );
-	$Test->diag( "$module: " . $pc->why_unrated );
+	$Test->diag( "$module: $why" );
     }
 
     return $ok;

@@ -1,5 +1,10 @@
 Revision history for Test::Pod::Coverage
 
+0.06
+        [ENHANCEMENTS]
+	* Files with all pod and no symbols is no longer an error.
+        * Enhanced some of the error messages.
+
 0.04    Sun Jan 18 21:51:59 CST 2004
         [ENHANCEMENTS]
         * Now lists the naked subroutines in the error message.
