@@ -8,6 +8,7 @@ t/Nopod.pm
 t/Privates.pm
 t/Simple.pm
 t/nopod.t
+t/parms.t
 t/pod.t
 t/privates.t
 t/self.t

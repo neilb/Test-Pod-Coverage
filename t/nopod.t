@@ -11,6 +11,6 @@ BEGIN {
 
 test_out( "not ok 1 - Checking Nopod" );
 test_fail(+2);
-test_diag( "couldn't find pod" );
+test_diag( "Nopod: couldn't find pod" );
 pod_coverage_ok( "Nopod", "Checking Nopod" );
 test_test( "Handles files with no pod at all" );

@@ -6,13 +6,13 @@ Test::Pod::Coverage - Check for pod coverage in your distribution.
 
 =head1 VERSION
 
-Version 0.02
+Version 0.04
 
-    $Header: /home/cvs/test-pod-coverage/Coverage.pm,v 1.5 2004/01/05 03:57:12 andy Exp $
+    $Header: /home/cvs/test-pod-coverage/Coverage.pm,v 1.10 2004/01/19 03:52:21 andy Exp $
 
 =cut
 
-our $VERSION = "0.02";
+our $VERSION = "0.04";
 
 =head1 SYNOPSIS
 
@@ -29,6 +29,17 @@ Can also be called with L<Pod::Coverage> parms.
 	{ also_private => [ qr/^[A-Z_]+$/ ], },
 	"Foo::Bar, with all-caps functions as privates",
     );
+
+If you want POD coverage for your module, but don't want to make
+Test::Pod::Coverage a prerequisite for installing, create the following
+as your F<t/pod-coverage.t> file:
+
+    use Test::More;
+    eval "use Test::Pod::Coverage";
+    plan skip_all => "Test::Pod::Coverage required for testing pod coverage" if $@;
+
+    plan tests => 1;
+    pod_coverage_ok( "Pod::Master::Html");
 
 =cut
 
@@ -65,7 +76,7 @@ L<Pod::Coverage> manual for what those can be.
 sub pod_coverage_ok {
     my $module = shift;
     my $parms = (@_ && (ref $_[0] eq "HASH")) ? shift : {};
-    my $msg = shift || "Pod coverage on $module";
+    my $msg = @_ ? shift : "Pod coverage on $module";
 
     my $pc = Pod::Coverage->new( package => $module, %$parms );
     my $rating = $pc->coverage;
@@ -74,12 +85,14 @@ sub pod_coverage_ok {
 	$ok = ($pc->coverage == 1);
 	$Test->ok( $ok, $msg );
 	if ( !$ok ) {
-	    $Test->diag( sprintf( "Coverage is %3.1f%%", $rating*100 ) );
+            my @nakies = sort $pc->naked;
+	    $Test->diag( sprintf( "Coverage is %3.1f%% with %d naked subroutines", $rating*100, scalar @nakies ) );
+            $Test->diag( "\t$_" ) for @nakies;
 	}
     } else {
 	$ok = 0;
 	$Test->ok( $ok, $msg );
-	$Test->diag( $pc->why_unrated );
+	$Test->diag( "$module: " . $pc->why_unrated );
     }
 
     return $ok;

@@ -11,8 +11,10 @@ BEGIN {
 
 MISSING_FUNCS: {
     test_out( "not ok 1 - Privates fails" );
-    test_fail(+2);
-    test_diag( "Coverage is 60.0%" );
+    test_fail(+4);
+    test_diag( "Coverage is 60.0% with 2 naked subroutines" );
+    test_diag( "\tINTERNAL_DOODAD" );
+    test_diag( "\tINTERNAL_THING" );
     pod_coverage_ok( "Privates", "Privates fails" );
     test_test( "Should fail at 60%" );
 }

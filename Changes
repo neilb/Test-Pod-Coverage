@@ -1,5 +1,19 @@
 Revision history for Test::Pod::Coverage
 
-0.02	
+0.04    Sun Jan 18 21:51:59 CST 2004
+        [ENHANCEMENTS]
+        * Now lists the naked subroutines in the error message.
+
+
+0.03    Sat Jan 17 11:14:56 CST 2004
+        [ENHANCEMENTS]
+	* Now says what module has a problem if it can't find any
+	  POD.  Thanks, Barbie.
+
+        [INTERNALS]
+	* Added a couple more tests to bring my test coverage up
+	  to 100%, according to Devel::Cover.  Whoo!
+
+0.02
 	First version with the new reasonable API on pod_coverage_ok().
 	If you got in on 0.01, switch now.
