@@ -1,0 +1,14 @@
+Changes
+Coverage.pm
+MANIFEST
+META.yml
+Makefile.PL
+t/00.load.t
+t/Nopod.pm
+t/Privates.pm
+t/Simple.pm
+t/nopod.t
+t/pod.t
+t/privates.t
+t/self.t
+t/simple.t
