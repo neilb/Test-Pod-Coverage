@@ -1,8 +1,12 @@
 Revision history for Test::Pod::Coverage
 
-0.06
+0.08    Fri Feb 13 23:13:21 CST 2004
         [ENHANCEMENTS]
-	* Files with all pod and no symbols is no longer an error.
+        * Added all_pod_coverage_ok(), and all_modules() for support.
+
+0.06    Jan 27 2004
+        [ENHANCEMENTS]
+        * Files with all pod and no symbols is no longer an error.
         * Enhanced some of the error messages.
 
 0.04    Sun Jan 18 21:51:59 CST 2004
@@ -12,13 +16,13 @@ Revision history for Test::Pod::Coverage
 
 0.03    Sat Jan 17 11:14:56 CST 2004
         [ENHANCEMENTS]
-	* Now says what module has a problem if it can't find any
-	  POD.  Thanks, Barbie.
+        * Now says what module has a problem if it can't find any
+          POD.  Thanks, Barbie.
 
         [INTERNALS]
-	* Added a couple more tests to bring my test coverage up
-	  to 100%, according to Devel::Cover.  Whoo!
+        * Added a couple more tests to bring my test coverage up
+          to 100%, according to Devel::Cover.  Whoo!
 
 0.02
-	First version with the new reasonable API on pod_coverage_ok().
-	If you got in on 0.01, switch now.
+        First version with the new reasonable API on pod_coverage_ok().
+        If you got in on 0.01, switch now.

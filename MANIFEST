@@ -8,6 +8,7 @@ t/Nopod.pm
 t/Nosymbols.pm
 t/Privates.pm
 t/Simple.pm
+t/all_modules.t
 t/nopod.t
 t/nosymbols.t
 t/parms.t

@@ -1,10 +1,11 @@
 # http://module-build.sourceforge.net/META-spec.html
 #XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
 name:         Test-Pod-Coverage
-version:      0.06
+version:      0.08
 version_from: Coverage.pm
 installdirs:  site
 requires:
+    File::Find:                    0
     Pod::Coverage:                 0
     Test::Builder::Tester:         0
     Test::More:                    0
