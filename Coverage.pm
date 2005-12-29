@@ -6,13 +6,11 @@ Test::Pod::Coverage - Check for pod coverage in your distribution.
 
 =head1 VERSION
 
-Version 1.06
-
-    $Header: /home/cvs/test-pod-coverage/Coverage.pm,v 1.26 2004/06/22 22:02:06 andy Exp $
+Version 1.07_01
 
 =cut
 
-our $VERSION = "1.06";
+our $VERSION = "1.07_01";
 
 =head1 SYNOPSIS
 
@@ -42,6 +40,16 @@ L<Mail::SRS>.
     pod_coverage_ok( "Mail::SRS::Guarded", $trustme );
     pod_coverage_ok( "Mail::SRS::Reversable", $trustme );
     pod_coverage_ok( "Mail::SRS::Shortcut", $trustme );
+
+Alternately, you could use L<Pod::Coverage::CountParents>, which always allows
+a subclass to reimplement its parents' methods without redocumenting them.  For
+example:
+
+    my $trustparents = { coverage_class => 'Pod::Coverage::CountParents' };
+    pod_coverage_ok( "IO::Handle::Frayed", $trustparents );
+
+(The C<coverage_class> parameter is not passed to the coverage class with other
+parameters.)
 
 If you want POD coverage for your module, but don't want to make
 Test::Pod::Coverage a prerequisite for installing, create the following
@@ -95,6 +103,9 @@ If the I<$parms> hashref if passed in, they're passed into the
 C<Pod::Coverage> object that the function uses.  Check the
 L<Pod::Coverage> manual for what those can be.
 
+The exception is the C<coverage_class> parameter, which specifies a class to
+use for coverage testing.  It defaults to C<Pod::Coverage>.
+
 =cut
 
 sub all_pod_coverage_ok {
@@ -112,7 +123,8 @@ sub all_pod_coverage_ok {
             my $thisok = pod_coverage_ok( $module, $parms, $thismsg );
             $ok = 0 unless $thisok;
         }
-    } else {
+    }
+    else {
         $Test->plan( tests => 1 );
         $Test->ok( 1, "No modules found." );
     }
@@ -129,14 +141,21 @@ If the I<$parms> hashref if passed in, they're passed into the
 C<Pod::Coverage> object that the function uses.  Check the
 L<Pod::Coverage> manual for what those can be.
 
+The exception is the C<coverage_class> parameter, which specifies a class to
+use for coverage testing.  It defaults to C<Pod::Coverage>.
+
 =cut
 
 sub pod_coverage_ok {
     my $module = shift;
-    my $parms = (@_ && (ref $_[0] eq "HASH")) ? shift : {};
+    my %parms = (@_ && (ref $_[0] eq "HASH")) ? %{(shift)} : ();
     my $msg = @_ ? shift : "Pod coverage on $module";
 
-    my $pc = Pod::Coverage->new( package => $module, %$parms );
+    my $pc_class = (delete $parms{coverage_class}) || 'Pod::Coverage';
+    eval "require $pc_class" or die $@;
+
+    my $pc = $pc_class->new( package => $module, %parms );
+
     my $rating = $pc->coverage;
     my $ok;
     if ( defined $rating ) {
@@ -150,7 +169,8 @@ sub pod_coverage_ok {
                     $module, $rating*100, scalar @nakies ) );
             $Test->diag( "\t$_" ) for @nakies;
         }
-    } else { # No symbols
+    }
+    else { # No symbols
         my $why = $pc->why_unrated;
         my $nopublics = ( $why =~ "no public symbols defined" );
         my $verbose = $ENV{HARNESS_VERBOSE} || 0;
@@ -165,7 +185,8 @@ sub pod_coverage_ok {
 =head2 all_modules( [@dirs] )
 
 Returns a list of all modules in I<$dir> and in directories below. If
-no directories are passed, it defaults to "blib".
+no directories are passed, it defaults to F<blib> if F<blib> exists,
+or F<lib> if not.
 
 Note that the modules are as "Foo::Bar", not "Foo/Bar.pm".
 
@@ -221,13 +242,54 @@ sub _starting_points {
     return 'lib';
 }
 
+=head1 BUGS
+
+Please report any bugs or feature requests to
+C<bug-test-pod-coverage at rt.cpan.org>, or through the web interface at
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Test-Pod-Coverage>.
+I will be notified, and then you'll automatically be notified of progress on
+your bug as I make changes.
+
+=head1 SUPPORT
+
+You can find documentation for this module with the perldoc command.
+
+    perldoc Test::Pod::Coverage
+
+You can also look for information at:
+
+=over 4
+
+=item * AnnoCPAN: Annotated CPAN documentation
+
+L<http://annocpan.org/dist/Test-Pod-Coverage>
+
+=item * CPAN Ratings
+
+L<http://cpanratings.perl.org/d/Test-Pod-Coverage>
+
+=item * RT: CPAN's request tracker
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Test-Pod-Coverage>
+
+=item * Search CPAN
+
+L<http://search.cpan.org/dist/Test-Pod-Coverage>
+
+=back
+
 =head1 AUTHOR
 
-Written by Andy Lester, C<< <andy@petdance.com> >>.
+Written by Andy Lester, C<< <andy at petdance.com> >>.
 
-=head1 COPYRIGHT
+=head1 ACKNOWLEDGEMENTS
 
-Copyright 2004, Andy Lester, All Rights Reserved.
+Thanks to Ricardo Signes for patches, and Richard Clamp for
+writing Pod::Coverage.
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2005, Andy Lester, All Rights Reserved.
 
 You may use, modify, and distribute this package under the
 same terms as Perl itself.
