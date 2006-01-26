@@ -6,11 +6,11 @@ Test::Pod::Coverage - Check for pod coverage in your distribution.
 
 =head1 VERSION
 
-Version 1.07_01
+Version 1.08
 
 =cut
 
-our $VERSION = "1.07_01";
+our $VERSION = "1.08";
 
 =head1 SYNOPSIS
 
@@ -87,12 +87,15 @@ sub import {
     no strict 'refs';
     *{$caller.'::pod_coverage_ok'}       = \&pod_coverage_ok;
     *{$caller.'::all_pod_coverage_ok'}   = \&all_pod_coverage_ok;
+    *{$caller.'::all_modules'}           = \&all_modules;
 
     $Test->exported_to($caller);
     $Test->plan(@_);
 }
 
 =head1 FUNCTIONS
+
+All functions listed below are exported to the calling namespace.
 
 =head2 all_pod_coverage_ok( [$parms, ] $msg )
 
@@ -225,9 +228,12 @@ sub all_modules {
 
             # Untaint the parts
             for ( @parts ) {
-                /^([a-zA-Z0-9_]+)$/;
-                die qq{Invalid and untaintable filename "$file"!} unless $_ eq $1;
-                $_ = $1;
+                if ( /^([a-zA-Z0-9_\.\-]+)$/ && ($_ eq $1) ) {
+                    $_ = $1;  # Untaint the original
+                }
+                else {
+                    die qq{Invalid and untaintable filename "$file"!};
+                }
             }
             my $module = join( "::", @parts );
             push( @modules, $module );
@@ -289,7 +295,7 @@ writing Pod::Coverage.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2005, Andy Lester, All Rights Reserved.
+Copyright 2006, Andy Lester, All Rights Reserved.
 
 You may use, modify, and distribute this package under the
 same terms as Perl itself.

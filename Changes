@@ -1,5 +1,10 @@
 Revision history for Test::Pod::Coverage
 
+1.08    Wed Jan 25 21:59:49 CST 2006
+        [FIXES]
+        * File and directory names may now contain periods and hyphens.
+        * Now exports all_modules().
+
 1.07_01 Wed Dec 28 23:10:31 CST 2005
         [ENHANCEMENTS]
         * Can now use an alternate class that implements the Pod::Coverage
