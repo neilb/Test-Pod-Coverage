@@ -79,6 +79,7 @@ modules in the module distribution:
 
 =cut
 
+use 5.006;
 use strict;
 use warnings;
 

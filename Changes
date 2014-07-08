@@ -2,6 +2,8 @@ Revision history for Perl module Test::Pod::Coverage
 
 1.09_01 2014-07-?? NEILB
     - Moved Coverage.pm to lib/Test/Pod/Coverage.pm
+    - Min perl version now set to 5.006 in both code and dist metadata.
+      Addresses RT#21564 from ANDK++
     - Added DESCRIPTION section to pod (RT#28715 JEREMIAH++),
       and changed to a minimal SYNOPSIS, with everything else moved
       to the DESCRIPTION.
