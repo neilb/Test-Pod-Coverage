@@ -1,60 +1,67 @@
-Revision history for Test::Pod::Coverage
+Revision history for Perl module Test::Pod::Coverage
 
-1.08    Wed Jan 25 21:59:49 CST 2006
-        [FIXES]
-        * File and directory names may now contain periods and hyphens.
-        * Now exports all_modules().
+1.09_01 2014-07-?? NEILB
+    - Reformatted as per CPAN::Changes::Spec
 
-1.07_01 Wed Dec 28 23:10:31 CST 2005
-        [ENHANCEMENTS]
-        * Can now use an alternate class that implements the Pod::Coverage
-          interface.  This is mostly useful for avoiding the necessity to
-          redocument or itemize overriden methods in a subclass by using
-          Pod::Coverage::CountParents.  Thanks to Ricardo Signes.
+1.08 2006-01-26 PETDANCE
+    [FIXES]
+    - File and directory names may now contain periods and hyphens.
+    - Now exports all_modules().
 
-1.06    Tue Jun 22 16:51:42 CDT 2004
-        [ENHANCEMENTS]
-        * Looks in blib/ if there is one, otherwise looks in lib/
-        * Doesn't report "no public symbols" unless verbose mode is on.
-        * Thanks to David Wheeler and Shawn Sorichetti for nudging.
-          This behavior will be in Test::Pod soon, too.
+1.07_01 2005-12-29 PETDANCE
+    [ENHANCEMENTS]
+    - Can now use an alternate class that implements the Pod::Coverage
+      interface.  This is mostly useful for avoiding the necessity to
+      redocument or itemize overriden methods in a subclass by using
+      Pod::Coverage::CountParents.  Thanks to Ricardo Signes.
 
-1.04    Sat May  1 00:06:14 CDT 2004
-        [FIXES]
-        * Now it runs taint-safe.  I was not untainting the filename.
+1.06 2004-06-22 PETDANCE
+    [ENHANCEMENTS]
+    - Looks in blib/ if there is one, otherwise looks in lib/
+    - Doesn't report "no public symbols" unless verbose mode is on.
+    - Thanks to David Wheeler and Shawn Sorichetti for nudging.
+      This behavior will be in Test::Pod soon, too.
 
-1.02    Fri Apr 30 23:27:23 CDT 2004
-        [FIXES]
-        * Fixed a warning in all_modules() under 5.8.3
+1.04 2004-05-01 PETDANCE
+    [FIXES]
+    - Now it runs taint-safe.  I was not untainting the filename.
 
-1.00    Wed Apr 28 23:50:19 CDT 2004
-        [ENHANCEMENTS]
-        * Now runs taint-safe.
-        * No longer uses File::Find.
+1.02 2004-05-01 PETDANCE
+    [FIXES]
+    - Fixed a warning in all_modules() under 5.8.3
 
-0.08    Fri Feb 13 23:13:21 CST 2004
-        [ENHANCEMENTS]
-        * Added all_pod_coverage_ok(), and all_modules() for support.
+1.00 2004-04-29 PETDANCE
+    [ENHANCEMENTS]
+    - Now runs taint-safe.
+    - No longer uses File::Find.
 
-0.06    Jan 27 2004
-        [ENHANCEMENTS]
-        * Files with all pod and no symbols is no longer an error.
-        * Enhanced some of the error messages.
+0.08 2004-02-14 PETDANCE
+    [ENHANCEMENTS]
+    - Added all_pod_coverage_ok(), and all_modules() for support.
 
-0.04    Sun Jan 18 21:51:59 CST 2004
-        [ENHANCEMENTS]
-        * Now lists the naked subroutines in the error message.
+0.06 2004-01-27 PETDANCE
+    [ENHANCEMENTS]
+    - Files with all pod and no symbols is no longer an error.
+    - Enhanced some of the error messages.
+
+0.04 2004-01-19 PETDANCE
+    [ENHANCEMENTS]
+    - Now lists the naked subroutines in the error message.
 
 
-0.03    Sat Jan 17 11:14:56 CST 2004
-        [ENHANCEMENTS]
-        * Now says what module has a problem if it can't find any
-          POD.  Thanks, Barbie.
+0.03 2004-01-17 PETDANCE (not released)
+    [ENHANCEMENTS]
+    - Now says what module has a problem if it can't find any POD.
+      Thanks, Barbie.
 
-        [INTERNALS]
-        * Added a couple more tests to bring my test coverage up
-          to 100%, according to Devel::Cover.  Whoo!
+    [INTERNALS]
+    - Added a couple more tests to bring my test coverage up
+      to 100%, according to Devel::Cover.  Whoo!
 
-0.02
-        First version with the new reasonable API on pod_coverage_ok().
-        If you got in on 0.01, switch now.
+0.02 2004-01-05 PETDANCE
+    - First version with the new reasonable API on pod_coverage_ok().
+      If you got in on 0.01, switch now.
+
+0.01 2004-01-04 PETDANCE
+    - First release to CPAN
+
