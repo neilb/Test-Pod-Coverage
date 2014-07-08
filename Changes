@@ -7,6 +7,10 @@ Revision history for Perl module Test::Pod::Coverage
     - Added DESCRIPTION section to pod (RT#28715 JEREMIAH++),
       and changed to a minimal SYNOPSIS, with everything else moved
       to the DESCRIPTION.
+    - The "no verbose" tests in t/nosymbols.t weren't ensuring that the
+      tests were running with HARNESS_VERBOSE set to false. You could set
+      that true in your environment and break the test.
+      RT#53947 - thanks to Pete Armstrong.
     - Reformatted as per CPAN::Changes::Spec
 
 1.08 2006-01-26 PETDANCE

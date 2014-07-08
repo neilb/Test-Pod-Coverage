@@ -10,6 +10,7 @@ BEGIN {
 }
 
 NO_VERBOSE: {
+    local $ENV{HARNESS_VERBOSE} = 0;
     test_out( "ok 1 - Checking Nosymbols" );
     pod_coverage_ok( "Nosymbols", "Checking Nosymbols" );
     test_test( "Handles files with no symbols" );
