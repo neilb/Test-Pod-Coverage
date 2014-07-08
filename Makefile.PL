@@ -8,15 +8,31 @@ if ($mm_ver =~ /_/) {
     die $@ if $@;
 }
 
+my @REQUIRES = (
+    'strict'        => 0,
+    'warnings'      => 0,
+    'Pod::Coverage' => 0,
+    'Test::Builder' => 0,
+);
+
+my @TEST_REQUIRES = (
+    'Test::Builder::Tester' => 0,
+    'Test::More'            => 0,
+    'lib'                   => 0,
+);
+
+push(@REQUIRES, @TEST_REQUIRES) if $mm_ver < 6.64;
+
 WriteMakefile(
     NAME                => 'Test::Pod::Coverage',
     VERSION_FROM        => 'lib/Test/Pod/Coverage.pm',
     ABSTRACT            => "Check for pod coverage in your distribution",
-    PREREQ_PM => {
-        'Pod::Coverage'         => 0,
-        'Test::More'            => 0,
-        'Test::Builder::Tester' => 0,
-    },
+    PREREQ_PM           => { @REQUIRES },
+
+    ($mm_ver >= 6.64
+        ? (TEST_REQUIRES => { @TEST_REQUIRES })
+        : ()
+    ),
 
     ($mm_ver >= 6.48
         ? (MIN_PERL_VERSION => 5.006)

@@ -11,6 +11,8 @@ Revision history for Perl module Test::Pod::Coverage
       tests were running with HARNESS_VERBOSE set to false. You could set
       that true in your environment and break the test.
       RT#53947 - thanks to Pete Armstrong.
+    - Makefile.PL: Ensured all prereqs listed in PREREQ_PM,
+      and TEST_REQUIRES set if a recent enough ExtUtils::MakeMaker.
     - Added github repo to pod and dist metadata
     - Reformatted as per CPAN::Changes::Spec
 
