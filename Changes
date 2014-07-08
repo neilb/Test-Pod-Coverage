@@ -15,6 +15,7 @@ Revision history for Perl module Test::Pod::Coverage
       and TEST_REQUIRES set if a recent enough ExtUtils::MakeMaker.
     - Added github repo to pod and dist metadata
     - Specified license as 'Perl' in metadata, to match doc.
+    - Deleted the old META.yml, so new MYMETA.{yml,json} will be generated.
     - Reformatted as per CPAN::Changes::Spec
 
 1.08 2006-01-26 PETDANCE

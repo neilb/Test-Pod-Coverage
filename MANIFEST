@@ -1,7 +1,6 @@
 Changes
 lib/Test/Pod/Coverage.pm
 MANIFEST
-META.yml
 Makefile.PL
 t/00.load.t
 t/all_pod_coverage_ok.t
