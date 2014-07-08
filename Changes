@@ -2,6 +2,9 @@ Revision history for Perl module Test::Pod::Coverage
 
 1.09_01 2014-07-?? NEILB
     - Moved Coverage.pm to lib/Test/Pod/Coverage.pm
+    - Added DESCRIPTION section to pod (RT#28715 JEREMIAH++),
+      and changed to a minimal SYNOPSIS, with everything else moved
+      to the DESCRIPTION.
     - Reformatted as per CPAN::Changes::Spec
 
 1.08 2006-01-26 PETDANCE

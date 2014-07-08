@@ -6,18 +6,24 @@ Test::Pod::Coverage - Check for pod coverage in your distribution.
 
 =head1 VERSION
 
-Version 1.08
+Version 1.09_01
 
 =cut
 
-our $VERSION = "1.08";
+our $VERSION = "1.09_01";
 
 =head1 SYNOPSIS
 
-Checks for POD coverage in files for your distribution.
+In one of your dist's test files (eg C<t/pod-coverage.t>):
 
     use Test::Pod::Coverage tests=>1;
     pod_coverage_ok( "Foo::Bar", "Foo::Bar is covered" );
+
+=head1 DESCRIPTION
+
+Test::Pod::Coverage is used to create a test for your distribution,
+to ensure that all relevant files in your distribution are appropriately
+documented in pod.
 
 Can also be called with L<Pod::Coverage> parms.
 
