@@ -11,6 +11,7 @@ Revision history for Perl module Test::Pod::Coverage
       tests were running with HARNESS_VERBOSE set to false. You could set
       that true in your environment and break the test.
       RT#53947 - thanks to Pete Armstrong.
+    - Added github repo to pod and dist metadata
     - Reformatted as per CPAN::Changes::Spec
 
 1.08 2006-01-26 PETDANCE

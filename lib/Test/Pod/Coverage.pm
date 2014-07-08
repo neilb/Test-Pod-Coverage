@@ -291,6 +291,10 @@ L<http://search.cpan.org/dist/Test-Pod-Coverage>
 
 =back
 
+=head1 REPOSITORY
+
+L<https://github.com/neilbowers/Test-Pod-Coverage>
+
 =head1 AUTHOR
 
 Written by Andy Lester, C<< <andy at petdance.com> >>.

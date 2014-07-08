@@ -23,6 +23,17 @@ WriteMakefile(
         : ()
     ),
 
+    ($mm_ver <= 6.45 ? () : (META_MERGE => {
+        'meta-spec' => { version => 2 },
+        resources => {
+            repository  => {
+                type => 'git',
+                web  => 'https://github.com/neilbowers/Test-Pod-Coverage',
+                url  => 'git://github.com/neilbowers/Test-Pod-Coverage.git',
+            },
+        },
+    })),
+
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'Test-Pod-Coverage-*' },
 );
