@@ -4,7 +4,7 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile(
     NAME                => 'Test::Pod::Coverage',
-    VERSION_FROM        => 'Coverage.pm',
+    VERSION_FROM        => 'lib/Test/Pod/Coverage.pm',
     ABSTRACT            => "Check for pod coverage in your distribution",
     PREREQ_PM => {
         'Pod::Coverage'         => 0,

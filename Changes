@@ -1,6 +1,7 @@
 Revision history for Perl module Test::Pod::Coverage
 
 1.09_01 2014-07-?? NEILB
+    - Moved Coverage.pm to lib/Test/Pod/Coverage.pm
     - Reformatted as per CPAN::Changes::Spec
 
 1.08 2006-01-26 PETDANCE

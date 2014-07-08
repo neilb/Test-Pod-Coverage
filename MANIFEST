@@ -1,5 +1,5 @@
 Changes
-Coverage.pm
+lib/Test/Pod/Coverage.pm
 MANIFEST
 META.yml
 Makefile.PL
