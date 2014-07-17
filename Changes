@@ -1,6 +1,7 @@
 Revision history for Perl module Test::Pod::Coverage
 
-1.09_01 2014-07-?? NEILB
+1.10 2014-07-17 NEILB
+    - Changed license to Artistic 2.0, at PETDANCE's request.
     - Moved Coverage.pm to lib/Test/Pod/Coverage.pm
     - Min perl version now set to 5.006 in both code and dist metadata.
       Addresses RT#21564 from ANDK++
@@ -14,9 +15,13 @@ Revision history for Perl module Test::Pod::Coverage
     - Makefile.PL: Ensured all prereqs listed in PREREQ_PM,
       and TEST_REQUIRES set if a recent enough ExtUtils::MakeMaker.
     - Added github repo to pod and dist metadata
-    - Specified license as 'Perl' in metadata, to match doc.
     - Deleted the old META.yml, so new MYMETA.{yml,json} will be generated.
     - Reformatted as per CPAN::Changes::Spec
+
+1.09_01 2014-07-08 NEILB
+    - Specified license as 'Perl' in metadata, to match doc.
+    - All of the changes in 1.10 were first done in this developer release,
+      apart from the change to Artistic License 2.0.
 
 1.08 2006-01-26 PETDANCE
     [FIXES]

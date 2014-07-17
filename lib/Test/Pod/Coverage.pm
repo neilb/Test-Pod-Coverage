@@ -6,11 +6,11 @@ Test::Pod::Coverage - Check for pod coverage in your distribution.
 
 =head1 VERSION
 
-Version 1.09_01
+Version 1.10
 
 =cut
 
-our $VERSION = "1.09_01";
+our $VERSION = "1.10";
 
 =head1 SYNOPSIS
 
@@ -308,8 +308,10 @@ writing Pod::Coverage.
 
 Copyright 2006, Andy Lester, All Rights Reserved.
 
-You may use, modify, and distribute this package under the
-same terms as Perl itself.
+This program is free software; you can redistribute it and/or modify it
+under the terms of the Artistic License version 2.0.
+
+See http://dev.perl.org/licenses/ for more information
 
 =cut
 
