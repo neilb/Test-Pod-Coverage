@@ -2,6 +2,7 @@
 
 use strict;
 
+use File::Spec;
 use Test::More tests => 2;
 
 BEGIN {
