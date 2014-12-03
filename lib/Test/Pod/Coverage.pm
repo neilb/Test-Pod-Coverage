@@ -83,6 +83,7 @@ use 5.006;
 use strict;
 use warnings;
 
+use File::Spec;
 use Pod::Coverage;
 use Test::Builder;
 
@@ -209,6 +210,10 @@ sub all_modules {
     my @starters = @_ ? @_ : _starting_points();
     my %starters = map {$_,1} @starters;
 
+    # Starters paths and their depths
+    my %starters_parts =
+        map { $_, scalar(File::Spec->splitdir($_)) } grep { -d $_ } @starters;
+
     my @queue = @starters;
 
     my @modules;
@@ -229,7 +234,13 @@ sub all_modules {
             next unless $file =~ /\.pm$/;
 
             my @parts = File::Spec->splitdir( $file );
-            shift @parts if @parts && exists $starters{$parts[0]};
+
+            # Deal with paths.. e.g blib/, lib/ or /foo/bar
+            my ($known_path) = grep { $file =~ m/^$_/ } keys %starters;
+            for (1..$starters_parts{$known_path}) {
+                shift @parts;
+            }
+
             shift @parts if @parts && $parts[0] eq "lib";
             $parts[-1] =~ s/\.pm$// if @parts;
 
