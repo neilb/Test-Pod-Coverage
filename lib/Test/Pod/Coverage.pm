@@ -62,7 +62,7 @@ Test::Pod::Coverage a prerequisite for installing, create the following
 as your F<t/pod-coverage.t> file:
 
     use Test::More;
-    eval "use Test::Pod::Coverage";
+    eval { use Test::Pod::Coverage };
     plan skip_all => "Test::Pod::Coverage required for testing pod coverage" if $@;
 
     plan tests => 1;
@@ -73,7 +73,7 @@ file and have C<Test::Pod::Coverage> automatically find and check all
 modules in the module distribution:
 
     use Test::More;
-    eval "use Test::Pod::Coverage 1.00";
+    eval { use Test::Pod::Coverage 1.00 };
     plan skip_all => "Test::Pod::Coverage 1.00 required for testing POD coverage" if $@;
     all_pod_coverage_ok();
 
