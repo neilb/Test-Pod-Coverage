@@ -195,7 +195,7 @@ sub pod_coverage_ok {
 =head2 all_modules( [@dirs] )
 
 Returns a list of all modules in I<$dir> and in directories below. If
-no directories are passed, it defaults to F<blib> if F<blib> exists,
+no directories are passed, it defaults to F<blib/lib> and/or F<blib/arch> if either of these exist,
 or F<lib> if not.
 
 Note that the modules are as "Foo::Bar", not "Foo/Bar.pm".
@@ -251,7 +251,10 @@ sub all_modules {
 }
 
 sub _starting_points {
-    return 'blib' if -e 'blib';
+    my @dirs;
+    push @dirs, 'blib/lib' if -d 'blib/lib';
+    push @dirs, 'blib/arch' if -d 'blib/arch';
+    return @dirs if @dirs;
     return 'lib';
 }
 
